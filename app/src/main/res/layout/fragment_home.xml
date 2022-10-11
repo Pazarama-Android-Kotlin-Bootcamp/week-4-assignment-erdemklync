@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingVertical="48dp"
+    android:paddingHorizontal="24dp"
+    android:background="@color/blue"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    tools:context=".presentation.home.HomeFragment">
+
+    <TextView
+        android:id="@+id/city_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="İstanbul"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/quicksand_bold"
+        android:includeFontPadding="false"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/today_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="11.10.2021"
+        android:textColor="@color/white"
+        android:fontFamily="@font/quicksand_regular"
+        android:includeFontPadding="false"
+
+        app:layout_constraintTop_toBottomOf="@id/city_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/weather_degree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="24°C"
+        android:textSize="64sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/quicksand_regular"
+        android:includeFontPadding="false"
+
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="@id/weather_image"
+        app:layout_constraintBottom_toTopOf="@id/weather_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/weather_image"
+        />
+
+    <TextView
+        android:id="@+id/weather_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Parçalı Bulutlu"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/quicksand_regular"
+        android:includeFontPadding="false"
+
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/weather_degree"
+        app:layout_constraintBottom_toBottomOf="@id/weather_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/weather_image"
+        />
+
+    <ImageView
+        android:id="@+id/weather_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/sun_behind_cloud_3d"
+        android:contentDescription="TODO"
+        android:layout_marginEnd="-96dp"
+
+        app:layout_constraintTop_toBottomOf="@id/today_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <Button
+        android:id="@+id/home_see_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/home_button_see_details"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/quicksand_regular"
+        android:drawableEnd="@drawable/ic_arrow_right"
+        style="@style/AppOutlinedButton"
+
+        app:layout_constraintTop_toBottomOf="@id/weather_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_next_days_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        tools:listitem="@layout/item_next_day"
+
+        app:layout_constraintTop_toBottomOf="@id/home_see_details"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+</androidx.constraintlayout.widget.ConstraintLayout>
