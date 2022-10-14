@@ -15,6 +15,10 @@ interface WeatherApi {
         @Query("lon")
         lon: String,
         @Query("exclude")
-        exclude: String
+        exclude: String,
+        @Query("units")
+        units: String,
+        @Query("lang")
+        lang: String,
     ): Call<WeatherResponse>
 }

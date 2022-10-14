@@ -53,13 +53,13 @@
 
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintTop_toTopOf="@id/weather_image"
-        app:layout_constraintBottom_toTopOf="@id/weather_text"
+        app:layout_constraintBottom_toTopOf="@id/weather_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/weather_image"
         />
 
     <TextView
-        android:id="@+id/weather_text"
+        android:id="@+id/weather_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Parçalı Bulutlu"
@@ -77,8 +77,8 @@
 
     <ImageView
         android:id="@+id/weather_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
         tools:src="@drawable/sun_behind_cloud_3d"
         android:contentDescription="TODO"
         android:layout_marginEnd="-96dp"
