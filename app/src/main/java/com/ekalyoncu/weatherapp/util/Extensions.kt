@@ -2,13 +2,12 @@ package com.ekalyoncu.weatherapp.util
 
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.ekalyoncu.weatherapp.R
+import androidx.core.content.res.ResourcesCompat
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun TextView.setWeatherText(degree: Double) {
+fun TextView.setWeatherDegree(degree: Double) {
     val formattedDegree = "%.1f".format(degree) + "°C"
     this.text = formattedDegree
 }
@@ -16,12 +15,9 @@ fun TextView.setWeatherText(degree: Double) {
 fun ImageView.setWeatherImage(
     weatherCode: String,
 ) {
-    val weatherImageUrl = "http://openweathermap.org/img/wn/${weatherCode}@4x.png"
-    Glide
-        .with(this)
-        .load(weatherImageUrl)
-        .placeholder(R.drawable.img_placeholder)
-        .into(this)
+    val weatherIconId = WeatherIcons.getWeatherIcon(weatherCode)
+    val weatherIconDrawable = ResourcesCompat.getDrawable(resources, weatherIconId, context.theme)
+    this.setImageDrawable(weatherIconDrawable)
 }
 
 fun TextView.setWeatherDescription(
@@ -33,5 +29,11 @@ fun TextView.setWeatherDescription(
 fun TextView.setDate(epochTime: Int) {
     val timeStamp = Timestamp(epochTime.toLong())
     val date = Date(timeStamp.time * 1000)
-    this.text = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date)
+    this.text = SimpleDateFormat("dd.MM.yyyy", Locale("tr")).format(date)
+}
+
+fun TextView.setDayName(epochTime: Int) {
+    val timeStamp = Timestamp(epochTime.toLong())
+    val date = Date(timeStamp.time * 1000)
+    this.text = SimpleDateFormat("EEEE", Locale("tr")).format(date)
 }

@@ -2,10 +2,12 @@ package com.ekalyoncu.weatherapp.ui.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekalyoncu.weatherapp.R
 import com.ekalyoncu.weatherapp.data.WeatherResponse
 import com.ekalyoncu.weatherapp.databinding.FragmentHomeBinding
@@ -43,37 +45,41 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             lang = Constants.LANG,
         ).enqueue(
             object : Callback<WeatherResponse> {
-                @SuppressLint("LongLogTag")
                 override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
 
                     if (response.isSuccessful) {
                         val weatherResponse = response.body()
                         weatherResponse?.let {
+                            Log.d("WEATHER_RESPONSE", it.toString())
                             setCurrent(it)
                         }
                     }
                 }
 
-                override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {}
+                @SuppressLint("LongLogTag")
+                override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
+                    Log.d("WEATHER_RESPONSE (fail):", t.toString())
+                }
             }
         )
     }
 
     private fun setCurrent(weatherResponse: WeatherResponse) {
         with(binding) {
-
             with(weatherResponse) {
                 cityName.text = timezone
                 todayDate.setDate(current.dt)
-                weatherDegree.setWeatherText(current.temp)
+                weatherDegree.setWeatherDegree(current.temp)
                 weatherImage.setWeatherImage(current.weather[0].icon)
                 weatherDescription.setWeatherDescription(current.weather[0].description)
+
+                homeNextDaysRecyclerView.apply {
+                    adapter = WeatherAdapter(weatherResponse.daily)
+                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                }
             }
-
-
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
