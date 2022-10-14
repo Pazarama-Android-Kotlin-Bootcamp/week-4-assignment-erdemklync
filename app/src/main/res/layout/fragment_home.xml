@@ -10,7 +10,7 @@
     android:background="@color/blue"
     android:clipToPadding="false"
     android:clipChildren="false"
-    tools:context=".presentation.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment">
 
     <TextView
         android:id="@+id/city_name"
