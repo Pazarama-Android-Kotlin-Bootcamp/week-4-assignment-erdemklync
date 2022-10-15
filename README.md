@@ -1,4 +1,15 @@
+<table align="center">
+  <tr>
+    <td><img src="assets/video.mp4" height="500px" /></td>
+    <td><img src="assets/1.png" height="500px" /></td>
+    <td><img src="assets/2.png" height="500px" /></td>
+    <td><img src="assets/3.png" height="500px" /></td>
+  </tr>
+</table>
+
+
 # Week-4-Assignment
+
 
 1. https://openweathermap.org/api kullanılarak bir hava durumu uygulaması geliştirilecektir. 2. https://marvelapp.com/prototype/70f2bha/screen/78478137 Buradan mockup ekranlarına bakabilirsiniz.
 3. OpenWeatherMap’ten alınan API key’in girildiği ekran. Sonraki sayfada çağrılacak hava durumu web servisi bu API key değerini kullanacaktır.
