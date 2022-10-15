@@ -10,11 +10,18 @@ import com.ekalyoncu.weatherapp.util.setDayName
 import com.ekalyoncu.weatherapp.util.setWeatherDegree
 import com.ekalyoncu.weatherapp.util.setWeatherImage
 
-class WeatherAdapter(private val response: List<Daily>) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
+class WeatherAdapter(
+    private val response: List<Daily>,
+    val listener: WeatherListener,
+) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
-    class ViewHolder(private val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(daily: Daily) {
             with(binding) {
+                root.setOnClickListener {
+                    listener.onClick(daily)
+                }
+
                 dayName.setDayName(daily.dt)
                 dayDate.setDate(daily.dt)
                 itemNextDayDegree.setWeatherDegree(daily.temp.day)

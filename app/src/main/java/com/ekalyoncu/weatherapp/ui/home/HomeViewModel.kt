@@ -1,6 +1,5 @@
 package com.ekalyoncu.weatherapp.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel() : ViewModel() {
+class HomeViewModel : ViewModel() {
 
     private val _homeLiveData = MutableLiveData<WeatherResponse>()
     val homeLiveData: LiveData<WeatherResponse> = _homeLiveData
