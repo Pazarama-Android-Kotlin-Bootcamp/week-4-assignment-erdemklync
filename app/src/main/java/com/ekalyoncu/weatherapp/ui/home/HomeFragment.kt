@@ -1,24 +1,18 @@
 package com.ekalyoncu.weatherapp.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekalyoncu.weatherapp.R
 import com.ekalyoncu.weatherapp.data.Daily
 import com.ekalyoncu.weatherapp.data.WeatherResponse
 import com.ekalyoncu.weatherapp.databinding.FragmentHomeBinding
-import com.ekalyoncu.weatherapp.service.ApiClient
 import com.ekalyoncu.weatherapp.util.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
