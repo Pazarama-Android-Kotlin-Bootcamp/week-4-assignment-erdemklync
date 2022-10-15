@@ -1,12 +1,13 @@
 package com.ekalyoncu.weatherapp.ui.home
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekalyoncu.weatherapp.R
 import com.ekalyoncu.weatherapp.data.WeatherResponse
@@ -18,6 +19,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
+
+    private val viewModel: HomeViewModel by viewModels()
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -33,38 +36,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getEverything()
+
+        viewModel.homeLiveData.observe(viewLifecycleOwner) { info ->
+            setWeatherInfo(info)
+        }
     }
 
-    private fun getEverything() {
-        ApiClient.getApiService().getWeatherInfo(
-            lat = Constants.LATITUDE,
-            lon = Constants.LONGITUDE,
-            exclude = Constants.EXCLUDE,
-            units = Constants.UNITS,
-            lang = Constants.LANG,
-        ).enqueue(
-            object : Callback<WeatherResponse> {
-                override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
-
-                    if (response.isSuccessful) {
-                        val weatherResponse = response.body()
-                        weatherResponse?.let {
-                            Log.d("WEATHER_RESPONSE", it.toString())
-                            setCurrent(it)
-                        }
-                    }
-                }
-
-                @SuppressLint("LongLogTag")
-                override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
-                    Log.d("WEATHER_RESPONSE (fail):", t.toString())
-                }
-            }
-        )
-    }
-
-    private fun setCurrent(weatherResponse: WeatherResponse) {
+    private fun setWeatherInfo(weatherResponse: WeatherResponse) {
         with(binding) {
             with(weatherResponse) {
                 cityName.text = timezone

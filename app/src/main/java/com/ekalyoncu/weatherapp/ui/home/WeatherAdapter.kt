@@ -8,6 +8,7 @@ import com.ekalyoncu.weatherapp.databinding.ItemWeatherBinding
 import com.ekalyoncu.weatherapp.util.setDate
 import com.ekalyoncu.weatherapp.util.setDayName
 import com.ekalyoncu.weatherapp.util.setWeatherDegree
+import com.ekalyoncu.weatherapp.util.setWeatherImage
 
 class WeatherAdapter(private val response: List<Daily>) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
@@ -17,6 +18,7 @@ class WeatherAdapter(private val response: List<Daily>) : RecyclerView.Adapter<W
                 dayName.setDayName(daily.dt)
                 dayDate.setDate(daily.dt)
                 itemNextDayDegree.setWeatherDegree(daily.temp.day)
+                itemNextDayImage.setWeatherImage(daily.weather[0].icon)
             }
         }
     }
@@ -27,7 +29,7 @@ class WeatherAdapter(private val response: List<Daily>) : RecyclerView.Adapter<W
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val daily: Daily = response.drop(1)[position]
+        val daily: Daily = response[position]
         holder.bind(daily)
     }
 
