@@ -1,7 +1,5 @@
 package com.ekalyoncu.weatherapp.data
 
-import com.google.gson.Gson
-
 data class Daily(
     val clouds: Int,
     val dew_point: Double,
@@ -22,14 +20,4 @@ data class Daily(
     val wind_deg: Int,
     val wind_gust: Double,
     val wind_speed: Double
-){
-    fun toJson() : String {
-        return Gson().toJson(this)
-    }
-
-    companion object {
-        fun fromJson(json: String) : Daily {
-            return Gson().fromJson(json, Daily::class.java)
-        }
-    }
-}
+)

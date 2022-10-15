@@ -1,14 +1,18 @@
 package com.ekalyoncu.weatherapp.ui.detail
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.ekalyoncu.weatherapp.data.Daily
+import com.ekalyoncu.weatherapp.data.DetailInfo
 import com.ekalyoncu.weatherapp.databinding.FragmentDetailBinding
+import com.ekalyoncu.weatherapp.util.setDate
 import com.ekalyoncu.weatherapp.util.setWeatherDegree
+import com.ekalyoncu.weatherapp.util.setWeatherImage
 
 class DetailFragment : Fragment() {
 
@@ -16,6 +20,15 @@ class DetailFragment : Fragment() {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val animation = TransitionInflater.from(requireContext()).inflateTransition(
+            android.R.transition.fade
+        )
+        sharedElementEnterTransition = animation
+        sharedElementReturnTransition = animation
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,20 +38,23 @@ class DetailFragment : Fragment() {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
         viewModel.detailLiveData.observe(viewLifecycleOwner) { info ->
-            val detailInfo = Daily.fromJson(info)
+            val detailInfo = DetailInfo.fromJson(info)
             setDailyInfo(detailInfo)
         }
 
         return binding.root
     }
 
-    private fun setDailyInfo(daily: Daily) {
+    private fun setDailyInfo(detailInfo: DetailInfo) {
         with(binding) {
-            with(daily) {
-                cityName.text = ""
-                dayDegreeValue.setWeatherDegree(daily.temp.day)
-                eveningDegreeValue.setWeatherDegree(daily.temp.eve)
-                nightDegreeValue.setWeatherDegree(daily.temp.night)
+            with(detailInfo) {
+                cityName.text = timezone
+                date.setDate(daily.dt)
+                weatherImage.setWeatherImage(daily.weather[0].icon)
+                dayValue.setWeatherDegree(daily.temp.day)
+                eveningValue.setWeatherDegree(daily.temp.eve)
+                nightValue.setWeatherDegree(daily.temp.night)
+                humidityValue.text = daily.humidity.toString()
             }
         }
     }

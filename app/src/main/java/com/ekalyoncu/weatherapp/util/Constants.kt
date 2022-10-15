@@ -7,5 +7,6 @@ class Constants {
         const val EXCLUDE = "minutely,hourly"
         const val UNITS = "metric"
         const val LANG = "tr"
+        const val DETAIL_INFO_KEY = "detailInfo"
     }
 }

@@ -1,15 +1,20 @@
 package com.ekalyoncu.weatherapp.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekalyoncu.weatherapp.R
 import com.ekalyoncu.weatherapp.data.Daily
+import com.ekalyoncu.weatherapp.data.DetailInfo
 import com.ekalyoncu.weatherapp.data.WeatherResponse
 import com.ekalyoncu.weatherapp.databinding.FragmentHomeBinding
 import com.ekalyoncu.weatherapp.util.*
@@ -27,15 +32,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            setWeatherInfo(state.weatherResponse)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel.homeLiveData.observe(viewLifecycleOwner) { info ->
-            setWeatherInfo(info)
+            binding.contentMain.isVisible = state.homeUiState is HomeUiState.Loaded
+            binding.imgLoading.isVisible = state.homeUiState is HomeUiState.Loading
+            binding.textLoading.isVisible = state.homeUiState is HomeUiState.Loading
         }
+        return binding.root
     }
 
     private fun setWeatherInfo(weatherResponse: WeatherResponse) {
@@ -52,8 +56,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         response = weatherResponse.daily,
                         listener = object : WeatherListener {
                             override fun onClick(daily: Daily) {
-                                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(daily.toJson())
-                                findNavController().navigate(action)
+                                val detailInfo = DetailInfo(timezone, daily)
+
+                                val extras = FragmentNavigatorExtras(
+                                    binding.weatherImage to "weatherImage"
+                                )
+
+                                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(detailInfo.toJson())
+                                findNavController().navigate(action, extras)
                             }
                         }
                     )

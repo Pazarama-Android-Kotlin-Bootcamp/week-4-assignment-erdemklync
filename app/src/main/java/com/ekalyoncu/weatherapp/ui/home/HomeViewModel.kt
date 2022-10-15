@@ -1,19 +1,32 @@
 package com.ekalyoncu.weatherapp.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ekalyoncu.weatherapp.data.WeatherResponse
 import com.ekalyoncu.weatherapp.service.ApiClient
 import com.ekalyoncu.weatherapp.util.Constants
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+sealed class HomeUiState {
+    object Loading: HomeUiState()
+    object Loaded: HomeUiState()
+}
+
+data class HomeDataState(
+    val weatherResponse: WeatherResponse,
+    val homeUiState: HomeUiState = HomeUiState.Loading,
+)
+
 class HomeViewModel : ViewModel() {
 
-    private val _homeLiveData = MutableLiveData<WeatherResponse>()
-    val homeLiveData: LiveData<WeatherResponse> = _homeLiveData
+    private val _state = MutableLiveData<HomeDataState>()
+    val state: LiveData<HomeDataState> = _state
 
     init {
         getWeatherInfo()
@@ -33,12 +46,19 @@ class HomeViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         val weatherResponse = response.body()
                         weatherResponse?.let {
-                            _homeLiveData.value = it
+                            _state.value = (
+                                HomeDataState(
+                                    weatherResponse = it,
+                                    homeUiState = HomeUiState.Loaded
+                                )
+                            )
                         }
                     }
                 }
 
-                override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {}
+                override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
+                    Log.d("HOME_VIEW_MODEL", t.toString())
+                }
             }
         )
     }

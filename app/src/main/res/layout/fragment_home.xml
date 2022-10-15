@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,108 +13,146 @@
     app:layoutDescription="@xml/fragment_home_scene"
     tools:context=".ui.home.HomeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/weather_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/img_loading"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/img_01d"
 
-        <TextView
-            android:id="@+id/city_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_bold"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="İstanbul" />
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_regular"
-            android:includeFontPadding="false"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/city_name"
-            tools:text="11.10.2021" />
-
-        <ImageView
-            android:id="@+id/weather_image"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:contentDescription="TODO"
-            tools:src="@drawable/img_01d"
-
-            app:layout_constraintTop_toBottomOf="@id/date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/weather_degree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_regular"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="64sp"
-            tools:text="24°C"
-
-            app:layout_constraintBottom_toTopOf="@id/weather_description"
-            app:layout_constraintTop_toBottomOf="@id/weather_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/weather_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_regular"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/weather_degree"
-            tools:text="Parçalı Bulutlu" />
-
-        <Button
-            android:id="@+id/home_see_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="32dp"
-            android:drawableEnd="@drawable/ic_arrow_right"
-            android:fontFamily="@font/quicksand_regular"
-            android:text="@string/home_button_see_details"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            style="@style/AppOutlinedButton"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/weather_description"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_next_days_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
-        app:layout_constraintTop_toBottomOf="@id/weather_info"
-        tools:listitem="@layout/item_weather">
+    <TextView
+        android:id="@+id/text_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yükleniyor"
+        android:textSize="22sp"
+        android:textColor="@color/white"
 
-    </androidx.recyclerview.widget.RecyclerView>
-</androidx.constraintlayout.motion.widget.MotionLayout>
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/img_loading"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        app:layoutDescription="@xml/fragment_home_scene">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/weather_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/city_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="İstanbul" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_regular"
+                android:includeFontPadding="false"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/city_name"
+                tools:text="11.10.2021" />
+
+            <ImageView
+                android:id="@+id/weather_image"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:contentDescription="TODO"
+                tools:src="@drawable/img_01d"
+                android:transitionName="weatherImage"
+
+                app:layout_constraintTop_toBottomOf="@id/date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/weather_degree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="64sp"
+                tools:text="24°C"
+
+                app:layout_constraintBottom_toTopOf="@id/weather_description"
+                app:layout_constraintTop_toBottomOf="@id/weather_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/weather_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/weather_degree"
+                tools:text="Parçalı Bulutlu" />
+
+            <Button
+                android:id="@+id/home_see_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:fontFamily="@font/quicksand_regular"
+                android:text="@string/home_button_see_details"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                style="@style/AppOutlinedButton"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/weather_description"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_next_days_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/weather_info"
+            tools:listitem="@layout/item_weather">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

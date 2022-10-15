@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="İstanbul"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textColor="@color/white"
         android:fontFamily="@font/quicksand_bold"
         android:includeFontPadding="false"
@@ -31,119 +31,222 @@
         android:layout_height="wrap_content"
         tools:text="11.10.2021"
         android:textColor="@color/white"
+        android:textSize="18sp"
         android:fontFamily="@font/quicksand_regular"
         android:includeFontPadding="false"
 
         app:layout_constraintTop_toBottomOf="@id/city_name"
+        app:layout_constraintBottom_toTopOf="@id/weather_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
     <ImageView
         android:id="@+id/weather_image"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginVertical="32dp"
         android:layout_marginEnd="-4dp"
         tools:src="@drawable/img_03d"
         android:contentDescription="TODO"
+        android:transitionName="weatherImage"
 
         app:layout_constraintTop_toBottomOf="@id/date"
+        app:layout_constraintBottom_toTopOf="@id/detail_day_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <Space
-        android:id="@+id/img_spacer"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detail_day_card"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
-
-        app:layout_constraintTop_toBottomOf="@id/weather_image"
-        />
-
-    <TextView
-        android:id="@+id/day_degree_text"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gündüz"
-        android:textSize="12sp"
-        android:textColor="@color/white"
+        android:layout_marginVertical="16dp"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@color/card_background_color"
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/evening_degree_text"
-        app:layout_constraintTop_toBottomOf="@id/img_spacer"
-        />
+        app:layout_constraintTop_toBottomOf="@id/weather_image">
 
-    <TextView
-        android:id="@+id/day_degree_value"
-        android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/day_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gündüz"
+                android:textSize="16sp"
+                android:fontFamily="@font/quicksand_bold"
+                android:includeFontPadding="false"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/day_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                tools:text="32°C"
+                android:textSize="18sp"
+                android:fontFamily="@font/quicksand_bold"
+                android:includeFontPadding="false"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detail_evening_card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="23.0"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:includeFontPadding="false"
+        android:layout_marginVertical="16dp"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@color/card_background_color"
 
-        app:layout_constraintStart_toStartOf="@id/day_degree_text"
-        app:layout_constraintEnd_toEndOf="@id/day_degree_text"
-        app:layout_constraintTop_toBottomOf="@id/day_degree_text"
-        />
+        app:layout_constraintTop_toBottomOf="@id/detail_day_card">
 
-    <TextView
-        android:id="@+id/evening_degree_text"
-        android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/evening_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Akşam"
+                android:textSize="16sp"
+                android:fontFamily="@font/quicksand_bold"
+                android:includeFontPadding="false"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/evening_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                tools:text="32°C"
+                android:textSize="18sp"
+                android:fontFamily="@font/quicksand_bold"
+                android:includeFontPadding="false"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detail_night_card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Akşam"
-        android:textSize="12sp"
-        android:textColor="@color/white"
+        android:layout_marginVertical="16dp"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@color/card_background_color"
 
-        app:layout_constraintTop_toBottomOf="@id/img_spacer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/detail_evening_card">
 
-    <TextView
-        android:id="@+id/evening_degree_value"
-        android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/night_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gece"
+                android:textSize="16sp"
+                android:fontFamily="@font/quicksand_bold"
+                android:includeFontPadding="false"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/night_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                tools:text="32°C"
+                android:textSize="18sp"
+                android:fontFamily="@font/quicksand_bold"
+                android:includeFontPadding="false"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detail_humidity_card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="23.0"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:includeFontPadding="false"
+        android:layout_marginVertical="16dp"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@color/card_background_color"
 
-        app:layout_constraintStart_toStartOf="@id/evening_degree_text"
-        app:layout_constraintEnd_toEndOf="@id/evening_degree_text"
-        app:layout_constraintTop_toBottomOf="@id/evening_degree_text"
-        />
+        app:layout_constraintTop_toBottomOf="@id/detail_night_card">
 
-    <TextView
-        android:id="@+id/night_degree_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gece"
-        android:textSize="12sp"
-        android:textColor="@color/white"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-        app:layout_constraintTop_toBottomOf="@id/img_spacer"
-        app:layout_constraintStart_toEndOf="@id/evening_degree_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+            <TextView
+                android:id="@+id/humidity_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nem Oranı (%)"
+                android:textSize="16sp"
+                android:fontFamily="@font/quicksand_bold"
+                android:includeFontPadding="false"
 
-    <TextView
-        android:id="@+id/night_degree_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="23.0"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:includeFontPadding="false"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
-        app:layout_constraintStart_toStartOf="@id/night_degree_text"
-        app:layout_constraintEnd_toEndOf="@id/night_degree_text"
-        app:layout_constraintTop_toBottomOf="@id/night_degree_text"
-        />
+            <TextView
+                android:id="@+id/humidity_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                tools:text="32°C"
+                android:textSize="18sp"
+                android:fontFamily="@font/quicksand_bold"
+                android:includeFontPadding="false"
 
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
