@@ -2,8 +2,8 @@ package com.ekalyoncu.weatherapp.util
 
 class Constants {
     companion object {
-        const val LATITUDE = "24.48498545514806"
-        const val LONGITUDE = "39.59704499100759"
+        const val LATITUDE = "41.08633553249694"
+        const val LONGITUDE = "31.12887459693166"
         const val EXCLUDE = "minutely,hourly"
         const val UNITS = "metric"
         const val LANG = "tr"

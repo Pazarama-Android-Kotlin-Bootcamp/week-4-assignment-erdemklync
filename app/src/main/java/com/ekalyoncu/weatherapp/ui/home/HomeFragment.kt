@@ -51,6 +51,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 weatherImage.setWeatherImage(current.weather[0].icon)
                 weatherDescription.setWeatherDescription(current.weather[0].description)
 
+                homeSeeDetails.setOnClickListener {
+                    val detailInfo = DetailInfo(timezone, weatherResponse.daily[0])
+                    val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(detailInfo.toJson())
+                    findNavController().navigate(action)
+                }
+
                 homeNextDaysRecyclerView.apply {
                     adapter = WeatherAdapter(
                         response = weatherResponse.daily,
@@ -58,12 +64,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             override fun onClick(daily: Daily) {
                                 val detailInfo = DetailInfo(timezone, daily)
 
-                                val extras = FragmentNavigatorExtras(
-                                    binding.weatherImage to "weatherImage"
-                                )
-
                                 val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(detailInfo.toJson())
-                                findNavController().navigate(action, extras)
+                                findNavController().navigate(action)
                             }
                         }
                     )

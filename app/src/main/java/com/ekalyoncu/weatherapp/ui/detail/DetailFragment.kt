@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.ekalyoncu.weatherapp.data.Daily
 import com.ekalyoncu.weatherapp.data.DetailInfo
 import com.ekalyoncu.weatherapp.databinding.FragmentDetailBinding
@@ -21,15 +22,6 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val animation = TransitionInflater.from(requireContext()).inflateTransition(
-            android.R.transition.fade
-        )
-        sharedElementEnterTransition = animation
-        sharedElementReturnTransition = animation
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,6 +32,10 @@ class DetailFragment : Fragment() {
         viewModel.detailLiveData.observe(viewLifecycleOwner) { info ->
             val detailInfo = DetailInfo.fromJson(info)
             setDailyInfo(detailInfo)
+        }
+
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
         }
 
         return binding.root

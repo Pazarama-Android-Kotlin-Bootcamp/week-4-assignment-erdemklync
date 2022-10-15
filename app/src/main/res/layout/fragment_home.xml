@@ -52,6 +52,7 @@
             android:id="@+id/weather_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
 
             app:layout_constraintTop_toTopOf="parent">
 
